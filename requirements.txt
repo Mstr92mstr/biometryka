@@ -1,0 +1,13 @@
+opencv-contrib-python==4.5.5.62
+numpy==1.22.1
+
+grpcio==1.43.0
+grpcio-tools==1.43.0
+numpy==1.22.1
+opencv-contrib-python==4.5.5.62
+pip==22.0.3
+protobuf==3.19.4
+seer==0.1.1
+setuptools==59.2.0
+six==1.16.0
+wheel==0.37.0
