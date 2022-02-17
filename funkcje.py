@@ -1,4 +1,4 @@
-import cv2
+import cv2 as cv
 import numpy as np
 
 
@@ -8,14 +8,24 @@ def usuniecie_tla(img):
     lower = np.array([0, 0, 0])
     upper = np.array([255, 150, 150])
     # Create mask to only select black
-    thresh = cv2.inRange(img, lower, upper)
+    thresh = cv.inRange(img, lower, upper)
     # apply morphology
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (20, 20))
-    morph = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
+    kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (20, 20))
+    morph = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel)
     # invert morp image
     mask = 255 - morph
     # apply mask to image
-    result = cv2.bitwise_and(img, img, mask=mask)
-    # save results
-    cv2.imwrite('pills_result.jpg', result)
+    result = cv.bitwise_and(img, img, mask=mask)
     return result
+
+
+def twarz_maska(img, faces_rect, blank):
+    for (x, y, w, h) in faces_rect:
+        radius = int(w*0.66)
+        cent_x = int(x+w/2)
+        cent_y = int(y+w/2)
+        marked_face = cv.circle(img, (cent_x, cent_y), radius, (0, 0, 255), 1)
+        #generacja maski
+        mask = cv.circle(blank, (cent_x, cent_y), radius, 255, -1)
+        return mask, marked_face
+
