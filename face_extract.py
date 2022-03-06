@@ -4,6 +4,7 @@ from funkcje import *
 
 
 img = cv.imread('Resources/Photos/RAINBOW/37.jpg')
+cv.imshow('Zdjecie wejsciowe', img)
 #generacja pustego zdjecia o wymiarach zdjecia wejsciowego
 blank = np.zeros(img.shape[:2], dtype='uint8')
 kaskada = 'haar_face.xml'

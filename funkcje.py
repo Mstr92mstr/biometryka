@@ -7,7 +7,7 @@ def usuniecie_tla(img):
     # Define lower and uppper limits
     lower = np.array([0, 0, 0])
     upper = np.array([255, 150, 150])
-    # Create mask to only select black
+    # Create mask to only select background
     thresh = cv.inRange(img, lower, upper)
     # apply morphology
     kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (20, 20))
@@ -29,3 +29,17 @@ def twarz_maska(img, faces_rect, blank):
         mask = cv.circle(blank, (cent_x, cent_y), radius, 255, -1)
         return mask, marked_face
 
+def podzial_segmentacja(img, kolor):
+    # Define lower and uppper limits
+    lower = np.array(kolor - 1)
+    upper = np.array([kolor + 1])
+    # Create mask to only select black
+    thresh = cv.inRange(img, lower, upper)
+    # apply morphology
+    kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (10, 1))
+    morph = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel)
+    result = cv.bitwise_and(img, img, mask=morph)
+    # cv.imshow('wydzielone maski', result)
+    # print('iteracja')
+    # cv.waitKey(0)
+    return result
