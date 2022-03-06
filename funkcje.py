@@ -4,7 +4,7 @@ import numpy as np
 
 def usuniecie_tla(img):
     # threshold on blue (cold background)
-    # Define lower and uppper limits
+    # Define lower and uppper limits of blue color
     lower = np.array([0, 0, 0])
     upper = np.array([255, 150, 150])
     # Create mask to only select background
@@ -33,13 +33,10 @@ def podzial_segmentacja(img, kolor):
     # Define lower and uppper limits
     lower = np.array(kolor - 1)
     upper = np.array([kolor + 1])
-    # Create mask to only select black
+    # Create mask to only select color from input
     thresh = cv.inRange(img, lower, upper)
     # apply morphology
     kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (10, 1))
     morph = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel)
     result = cv.bitwise_and(img, img, mask=morph)
-    # cv.imshow('wydzielone maski', result)
-    # print('iteracja')
-    # cv.waitKey(0)
     return result

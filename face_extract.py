@@ -3,7 +3,7 @@ import numpy as np
 from funkcje import *
 
 
-img = cv.imread('Resources/Photos/RAINBOW/37.jpg')
+img = cv.imread('Resources/Photos/RAINBOW/49.jpg')
 cv.imshow('Zdjecie wejsciowe', img)
 #generacja pustego zdjecia o wymiarach zdjecia wejsciowego
 blank = np.zeros(img.shape[:2], dtype='uint8')
@@ -25,7 +25,7 @@ if len(faces_rect) == 1:
     cv.imshow('wydzielona twarz', masked)
     #zapis wyextractowanej twarzy
     cv.imwrite('extracted_face.jpg', masked)
+elif len(faces_rect) == 0:
+    print('Nie wykryto twarzy, zmień zdjęcie!')
 else:
-    print('Nie wykryto lub wykryto więcej niż jedną twarz, zmień zdjęcie!')
-
-cv.waitKey(0)
+    print('Wykryto więcej niż jedną twarz, zmień zdjęcie!')

@@ -26,4 +26,3 @@ for kolor in center:
 for n in range(K):
     tekst = ('maska ') + str(n)
     cv.imshow(tekst, segmentacja_maska[n])
-cv.waitKey(0)
