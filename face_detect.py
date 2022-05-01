@@ -1,6 +1,6 @@
 import cv2 as cv
 
-img = cv.imread('Resources/Photos/RAINBOW/32.jpg')
+img = cv.imread('Resources/Photos/RAINBOW/56.jpg')
 cv.imshow('Twarze', img)
 
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -11,7 +11,7 @@ gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 # print('Liczba znalezionych twarzy : ', len(faces_rect))
 
 kaskady = ['haar_face.xml', 'haarcascade_frontalcatface.xml', 'haarcascade_frontalcatface_extended.xml', 'haarcascade_frontalface_alt.xml', 'haarcascade_frontalface_alt2.xml', 'haarcascade_frontalface_alt2_1.xml', 'haarcascade_frontalface_alt_tree.xml', 'haarcascade_frontalface_default.xml', 'haarcascade_profileface.xml']
-wykryte = cv.imread('Resources/Photos/01.jpg')
+wykryte = cv.imread('Resources/Photos/RAINBOW/56.jpg')
 
 for i in range(len(kaskady)):
     haar_cascade = cv.CascadeClassifier(kaskady[i])

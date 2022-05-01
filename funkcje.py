@@ -29,6 +29,14 @@ def twarz_maska(img, faces_rect, blank):
         mask = cv.circle(blank, (cent_x, cent_y), radius, 255, -1)
         return mask, marked_face
 
+def odrzucenie_wykrycia(wykrycie1, wykrycie2):
+    len_1 = wykrycie1[0, 2]
+    len_2 = wykrycie2[0, 2]
+    if len_1 > len_2:
+        return 0
+    else:
+        return 1
+
 def podzial_segmentacja(img, kolor):
     # Define lower and uppper limits
     lower = np.array(kolor - 1)

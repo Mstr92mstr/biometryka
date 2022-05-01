@@ -13,4 +13,5 @@ for n in range(1, segmentation.K):
     result = cv.bitwise_or(result, thinned)
 
 cv.imshow('Wynik', result)
+cv.imwrite('Szkielet1.jpg', result)
 cv.waitKey(0)

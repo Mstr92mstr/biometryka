@@ -1,5 +1,7 @@
 opencv-contrib-python==4.5.5.62
 numpy==1.22.1
+scikit-image==0.19.2
+matplotlib == 3.5.1
 
 grpcio==1.43.0
 grpcio-tools==1.43.0
