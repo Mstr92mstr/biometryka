@@ -4,8 +4,8 @@ from skimage.metrics import structural_similarity as ssim
 from PIL import Image, ImageChops
 
 
-img = cv.imread('base_of_sings/Szkielet32.jpg', 0)
-img_compare = cv.imread('base_of_sings/Szkielet49.jpg', 0)
+img = cv.imread('base_of_sings_2/Szkielet32.jpg', 0)
+img_compare = cv.imread('base_of_sings_2/Szkielet49.jpg', 0)
 
 # metoda 1
 # cv.waitKey(0)
@@ -36,7 +36,7 @@ img_compare = cv.imread('base_of_sings/Szkielet49.jpg', 0)
 # print(s)
 #
 
-img_1 = Image.open('base_of_sings/Szkielet32.jpg')
-img_2 = Image.open('base_of_sings/Szkielet35.jpg')
+img_1 = Image.open('base_of_sings_2/Szkielet_32.jpg')
+img_2 = Image.open('base_of_sings_2/Szkielet_35.jpg')
 different = ImageChops.difference(img_1, img_2)
 different.show()

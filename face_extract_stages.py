@@ -16,7 +16,7 @@ faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.02, minNeighbors=
 # wykonanie extrakcji twarzy pod warunkiem wykrycia 1 twarzy
 if len(faces_rect) == 1:
     #wyznaczenie środka okręgu wykrytej twarzy
-    mask, marked_face = twarz_maska(img, faces_rect, blank)
+    mask, marked_face = twarz_maska(img, faces_rect)
     cv.imshow('etap 2 wykrycie twarzy kaskada haara', marked_face)
 
     #usuniecie zimnego tla

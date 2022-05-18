@@ -3,41 +3,41 @@ import numpy as np
 from funkcje import *
 
 
-img = cv.imread('Resources/Photos/RAINBOW/37.jpg')
+img = cv.imread('Resources/Photos/RAINBOW/3.jpg')
 cv.imshow('Zdjecie wejsciowe', img)
 #generacja pustego zdjecia o wymiarach zdjecia wejsciowego
-blank = np.zeros(img.shape[:2], dtype='uint8')
+puste_zdjecie = np.zeros(img.shape[:2], dtype='uint8')
 kaskada = 'haar_face.xml'
 # kaskada = 'haarcascade_frontalface_alt.xml'
 #zmiana na odcienie szarosci do wykrycia twarzy przez kaskade
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 haar_cascade = cv.CascadeClassifier(kaskada)
-faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.02, minNeighbors=3)
-
-print("wykryto", len(faces_rect), "twarz/twarze")
+wykryte_twarze = haar_cascade.detectMultiScale(gray, scaleFactor=1.05, minNeighbors=4)
+print("wykryto", len(wykryte_twarze), "twarz/twarze")
 # wykonanie extrakcji twarzy pod warunkiem wykrycia 1 twarzy
-if len(faces_rect) == 2:
+if len(wykryte_twarze) == 2:
     # odjęcie falszywie wykrytej twarzy - najpierw utworzenie podział na pojedyncze wektory
-    faces_rect1 = np.delete(faces_rect, 0, axis=0)
-    faces_rect2 = np.delete(faces_rect, 1, axis=0)
+    twarz_prostokat1 = np.delete(wykryte_twarze, 0, axis=0)
+    twarz_prostokat2 = np.delete(wykryte_twarze, 1, axis=0)
     #wybor odrzuconego wykrycia
-    faces_rect = np.delete(faces_rect, odrzucenie_wykrycia(faces_rect1, faces_rect2), axis=0)
-    mask, marked_face = twarz_maska(img, faces_rect, blank)
+    wykryte_twarze = np.delete(wykryte_twarze, odrzucenie_wykrycia(twarz_prostokat1, twarz_prostokat2), axis=0)
+    maska, zaznaczona_twarz = twarz_maska(img, wykryte_twarze)
     # usuniecie zimnego tla
-    background = usuniecie_tla(img)
-    masked = cv.bitwise_and(background, background, mask=mask)
+    tlo = usuniecie_tla(img)
+    po_maskowaniu = cv.bitwise_and(tlo, tlo, mask=maska)
     # zapis wyextractowanej twarzy
-    cv.imwrite('extracted_face.jpg', masked)
-elif len(faces_rect) == 1:
+    cv.imwrite('extracted_face.jpg', po_maskowaniu)
+elif len(wykryte_twarze) == 1:
     #wyznaczenie środka okręgu wykrytej twarzy
-    mask, marked_face = twarz_maska(img, faces_rect, blank)
+    maska, zaznaczona_twarz = twarz_maska(img, wykryte_twarze)
     #usuniecie zimnego tla
-    background = usuniecie_tla(img)
-    masked = cv.bitwise_and(background, background, mask=mask)
-    cv.imshow('wydzielona twarz', masked)
+    tlo = usuniecie_tla(img)
+    # cv.imshow('tlo', tlo)
+    po_maskowaniu = cv.bitwise_and(tlo, tlo, mask=maska)
+    # cv.imshow('wydzielona twarz', po_maskowaniu)
     #zapis wyextractowanej twarzy
-    cv.imwrite('extracted_face.jpg', masked)
-elif len(faces_rect) == 0:
+    cv.imwrite('extracted_face.jpg', po_maskowaniu)
+elif len(wykryte_twarze) == 0:
     print('Nie wykryto twarzy, zmień zdjęcie!')
 else:
     print('Wykryto więcej niż jedną twarz, zmień zdjęcie!')

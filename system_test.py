@@ -31,16 +31,14 @@ def porownanie_2(img1, img2):
 flag = False
 flaga_exit = False
 
-obraz_wejsciowy_raw = cv.imread('Resources/Photos/RAINBOW/36.jpg')
+obraz_wejsciowy_raw = cv.imread('Resources/Photos/RAINBOW/34.jpg')
 try:
     obraz_wejsciowy = generacja_sladu(obraz_wejsciowy_raw)
 except Exception as e:
     print(e)
     flaga_exit = True
-    obraz_wejsciowy = obraz_wejsciowy_raw
 
 pusty = cv.imread('base_of_sings_2/Szkielet_pusty.jpg')
-cv.imshow('Obraz wejściowy', obraz_wejsciowy)
 cv.waitKey()
 if flaga_exit is False:
     for j in range(0, licznosc_bazy):
@@ -61,7 +59,7 @@ if flaga_exit is False:
 
     plt.stem(x, wartosci_porownania_x)
     plt.autoscale()
-    plt.show()
+    # plt.show()
 else:
     print("Przerwano działanie algorytmu, zmień zdjęcie!")
 

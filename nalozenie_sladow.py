@@ -3,8 +3,8 @@ import cv2 as cv
 
 for i in range(32, 58):
     nazwa_odczyt_zdjecie = 'Resources/Photos/RAINBOW/' + str(i) + '.jpg'
-    nazwa_odczyt_podpis = 'base_of_sings/Szkielet' + str(i) + '.jpg'
-    nazwa_zapis = 'images_with_signs/signed_' + str(i) + '.jpg'
+    nazwa_odczyt_podpis = 'base_of_sings_2/Szkielet_' + str(i) + '.jpg'
+    nazwa_zapis = 'images_with_signs_2/signed2_' + str(i) + '.jpg'
 
     img_zdj = cv.imread(nazwa_odczyt_zdjecie)
     img_podpis = cv.imread(nazwa_odczyt_podpis)

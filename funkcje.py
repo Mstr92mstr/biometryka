@@ -3,30 +3,31 @@ import numpy as np
 
 
 def usuniecie_tla(img):
-    # threshold on blue (cold background)
-    # Define lower and uppper limits of blue color
-    lower = np.array([0, 0, 0])
-    upper = np.array([255, 150, 150])
-    # Create mask to only select background
-    thresh = cv.inRange(img, lower, upper)
-    # apply morphology
-    kernel = cv.getStructuringElement(cv.MORPH_ELLIPSE, (20, 20))
-    morph = cv.morphologyEx(thresh, cv.MORPH_CLOSE, kernel)
-    # invert morp image
-    mask = 255 - morph
-    # apply mask to image
-    result = cv.bitwise_and(img, img, mask=mask)
-    return result
+    # Zdefiniowanie dolnej i górnej granicy wycinanego koloru niebieskiego
+    gorny = np.array([0, 0, 0])
+    dolny = np.array([255, 150, 150])
+    # stworzenie maski wycinajacej tlo
+    zakres = cv.inRange(img, gorny, dolny)
+    # aplikacja przekształceń morfologicznych
+    jadro = cv.getStructuringElement(cv.MORPH_ELLIPSE, (5, 5))
+    morfologia = cv.morphologyEx(zakres, cv.MORPH_CLOSE, jadro)
+    # odwrócenie wyników
+    maska = 255 - morfologia
+    # cv.imshow('maska', maska)
+    # zastosowanie maski do obrazu wejściowego
+    wynik = cv.bitwise_and(img, img, mask=maska)
+    return wynik
 
 
-def twarz_maska(img, faces_rect, blank):
+def twarz_maska(img, faces_rect):
+    puste_zdjecie = np.zeros(img.shape[:2], dtype='uint8')
     for (x, y, w, h) in faces_rect:
-        radius = int(w*0.66)
+        radius = int(w*0.56)
         cent_x = int(x+w/2)
         cent_y = int(y+w/2)
         marked_face = cv.circle(img, (cent_x, cent_y), radius, (0, 0, 255), 1)
         #generacja maski
-        mask = cv.circle(blank, (cent_x, cent_y), radius, 255, -1)
+        mask = cv.circle(puste_zdjecie, (cent_x, cent_y), radius, 255, -1)
         return mask, marked_face
 
 def odrzucenie_wykrycia(wykrycie1, wykrycie2):
